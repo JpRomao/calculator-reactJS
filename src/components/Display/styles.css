@@ -1,0 +1,25 @@
+.display {
+  grid-column: span 4;
+  background-color: #0004;
+
+  display: grid;
+  grid-template-rows: 20px 10px 1fr;
+  padding: 10px 15px 10px 5px;
+  font-size: 3.4rem;
+  overflow: hidden;
+}
+
+#previousNumber {
+  font-size: 1.2rem;
+  padding: 10px
+}
+
+#operator {
+  font-size: 1.3rem;
+}
+
+#previousNumber, #actualNumber, #operator {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}

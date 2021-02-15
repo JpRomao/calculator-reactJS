@@ -1,0 +1,34 @@
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 1.6em;
+  background-color: var(--button-background);
+  border: none;
+  border-right: var(--button-border);
+  border-bottom: var(--button-border);
+  outline: none;
+
+  transition: 0.2s;
+}
+
+.button:active {
+  background-color: var(--button-background-dark);
+}
+
+.button.double {
+  grid-column: span 2;
+}
+
+.button.triple {
+  grid-column: span 3;
+}
+
+.button.operation {
+  background-color: var(--button-background-operator);
+}
+
+.button.operation:active {
+  background-color: var(--button-background-operator-dark);
+}
