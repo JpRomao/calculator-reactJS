@@ -8,57 +8,57 @@ import deleteIcon from '../../assets/icons/delete-icon.svg';
 import './styles.css';
 
 export default function Calculator() {
-  const [displayValue, setDisplayValue] = useState(0);
+  const [displayValue, setDisplayValue] = useState('0');
   const [number, setNumber] = useState();
   const [operator, setOperator] = useState('');
 
   function handleClearMemory() {
     setNumber();
     setOperator('');
-    setDisplayValue(0);
+    setDisplayValue('0');
   }
 
   function handleSetOperation(operation) {
     if(operation === '=' && operator) {
       const result = calculate(number, operator, displayValue);
 
-      setNumber();
+      setNumber(`${number} ${operator} ${displayValue}`);
       setOperator('');
 
       if(result.toString().includes('.') && result.toString().split('.')[1].length > 8) {
-        return setDisplayValue(result.toFixed(8));
+        return setDisplayValue(Number(result).toFixed(8).toString());
       }
 
-      return setDisplayValue(result);
+      return setDisplayValue(result.toString());
     }
 
     if(operation === 'delete') {
-      if(displayValue.toString().length>1) {
-        return setDisplayValue(displayValue.toString().substr(0, displayValue.toString().length-1));
+      if(displayValue.length>1) {
+        return setDisplayValue(displayValue.substr(0, displayValue.length-1));
       }
 
-      return setDisplayValue(0);
+      return setDisplayValue('0');
     }
 
     if(!operator && operation === '=') {
       return;
     }
 
-    if(operator) {
+    if(operator && displayValue !== '0') {
       const result = calculate(number, operator, displayValue);
 
       if(result.toString().includes('.') && result.toString().split('.')[1].length > 8) {
-        return setNumber(result.toFixed(8));
+        return setNumber(Number(result.toFixed(8)).toString());
       }
 
       setOperator(operation);
-      setDisplayValue(0);
-     return setNumber(result);
+      setDisplayValue('0');
+      return setNumber(result.toString());
     }
 
     setOperator(operation);
 
-    if(displayValue !== '') {
+    if(displayValue !== '0') {
       setNumber(displayValue);
     }
 
@@ -70,19 +70,19 @@ export default function Calculator() {
       return;
     }
 
-    if(displayValue === 0 && number === 0) {
+    if(displayValue === '0' && number === 0) {
       return;
     }
 
-    if(displayValue === 0 && number !== '.') {
+    if(displayValue === '0' && number !== '.') {
       return setDisplayValue(Number(number));
     }
 
     if(number === '.') {
-      return setDisplayValue(displayValue + number);
+      return setDisplayValue(displayValue + number.toString());
     }
 
-    return setDisplayValue(displayValue + number);
+    return setDisplayValue(displayValue + number.toString());
   }
 
   return (
