@@ -9,7 +9,9 @@ export default function Button(props) {
       onClick={props.onClick}
       value={props.label}
     >
-      { props.label }
+      {
+        props.children ? props.children : props.label
+      }
     </button>
   );
 }

@@ -21,14 +21,14 @@
   grid-column: span 2;
 }
 
-.button.triple {
-  grid-column: span 3;
-}
-
 .button.operation {
   background-color: var(--button-background-operator);
 }
 
 .button.operation:active {
   background-color: var(--button-background-operator-dark);
+}
+
+img {
+  width: 75%;
 }
