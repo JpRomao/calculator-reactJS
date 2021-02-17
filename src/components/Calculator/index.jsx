@@ -25,6 +25,10 @@ export default function Calculator() {
       setNumber(`${number} ${operator} ${displayValue}`);
       setOperator('');
 
+      if(result === "NaN") {
+        return setDisplayValue('Inexistent');
+      }
+
       if(result.toString().includes('.') && result.toString().split('.')[1].length > 8) {
         return setDisplayValue(Number(result).toFixed(8).toString());
       }
@@ -33,6 +37,10 @@ export default function Calculator() {
     }
 
     if(operation === 'delete') {
+      if(displayValue === 'Inexistent' || displayValue === 'Infinity') {
+        return setDisplayValue('0');
+      }
+
       if(displayValue.length>1) {
         return setDisplayValue(displayValue.substr(0, displayValue.length-1));
       }
@@ -44,7 +52,7 @@ export default function Calculator() {
       return;
     }
 
-    if(operator && displayValue !== '0') {
+    if(operator) {
       const result = calculate(number, operator, displayValue);
 
       if(result.toString().includes('.') && result.toString().split('.')[1].length > 8) {
@@ -53,14 +61,13 @@ export default function Calculator() {
 
       setOperator(operation);
       setDisplayValue('0');
+
       return setNumber(result.toString());
     }
 
     setOperator(operation);
 
-    if(displayValue !== '0') {
-      setNumber(displayValue);
-    }
+    setNumber(displayValue);
 
     return setDisplayValue('0');
   }
@@ -68,6 +75,10 @@ export default function Calculator() {
   function handleAddDigit(number) {
     if(number === '.' && displayValue.toString().includes('.')) {
       return;
+    }
+
+    if(displayValue === 'NaN') {
+      return setDisplayValue(number);
     }
 
     if(displayValue === '0' && number === 0) {
@@ -168,8 +179,8 @@ export default function Calculator() {
         double
       />
       <Button
-        label="."
         onClick={e => handleAddDigit(e.target.value)}
+        label="."
       />
       <Button
         onClick={e => handleSetOperation(e.target.value)}
